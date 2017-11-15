@@ -1,5 +1,7 @@
 var bulletTime1 = 0;
 
+var i = 0;
+
 var bullet_player1_material = new THREE.MeshLambertMaterial(
 {
     color: 0x00ff00, 
@@ -16,6 +18,13 @@ function shoot()
         scene.add(bullet);
         bullet.position.x = player1.graphic.position.x + 7.5 * Math.cos(player1.direction);
         bullet.position.y = player1.graphic.position.y + 7.5 * Math.sin(player1.direction);
+        var py = ennemy.position.y;
+        var px = ennemy.position.x;
+        var by = bullet.position.y;
+        var bx = bullet.position.x;
+        //if ( (py > by - 5 && py < by + 5) && (px > bx - 5 && px < bx + 5))
+        if (px == bx)
+            ennemy.dead();
         bullet.angle = player1.direction;
         player1.bullets.push(bullet);
         bulletTime1 = clock.getElapsedTime();
@@ -65,8 +74,31 @@ function player_collision()
         player1.graphic.position.x -= x - WIDTH;
     if ( y < 0 )
         player1.graphic.position.y -= y;
+    if ( x < 0 )
+        player1.graphic.position.x -= x;
     if ( y > HEIGHT )
         player1.graphic.position.y -= y - HEIGHT;
+
+    var x2 = ennemy.graphic.position.x + WIDTH / 2;
+    var y2 = ennemy.graphic.position.y + HEIGHT / 2;
+
+    if ( x2 > WIDTH ){
+        ennemy.graphic.position.x -= x2 - WIDTH;
+        ennemy.direction += 50;
+    }
+    if ( y2 < 0 ){
+         ennemy.graphic.position.y -= y2;
+         ennemy.direction += 50;
+    }
+           
+    if ( x2 < 0 ){
+            ennemy.graphic.position.x -= x2;
+            ennemy.direction += 50;
+    }
+    if ( y2 > HEIGHT ){
+            ennemy.graphic.position.y -= y2 - HEIGHT;
+            ennemy.direction += 50;
+    }
 
 }
 

@@ -28,6 +28,9 @@ function init()
     player1 = new Player("player1", 0xffff00, new THREE.Vector2(50, 0), 0);
     scene.add(player1.graphic);
 
+    ennemy = new Ennemy("ennemy", 0xf00f00, new THREE.Vector2(50, 0), 0);
+    scene.add(ennemy.graphic);
+
     light1 = new Light("sun", 0xffffff, "0,0,340");
     scene.add(light1);
 }
@@ -57,6 +60,14 @@ function Ground(color, size_x, size_y, nb_tile)
                 tmpGround.position.x = x;
                 tmpGround.position.y = y;
                 scene.add(tmpGround);
+            }
+            else if (x === 0 && y === 0){
+                    tmpGround = new THREE.Mesh(
+                    new THREE.PlaneGeometry(sizeOfTileX-10, sizeOfTileY-10),
+                    new THREE.MeshLambertMaterial({color: 0x00ff00, transparent: true, opacity: 0.6}));
+                    tmpGround.position.x = x;
+                    tmpGround.position.y = y;
+                    scene.add(tmpGround);
             }
             else
                 noGround.push([x, y]);

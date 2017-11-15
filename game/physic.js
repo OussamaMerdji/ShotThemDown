@@ -12,7 +12,10 @@ function update()
         player1.accelerate(moveDistance);
     if (keyboard.pressed("down"))
         player1.decelerate(moveDistance);
+    
+    ennemy.accelerate(moveDistance);
 
+    ennemy.move();
     player1.move();
     controls.update();
 }
